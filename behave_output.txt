@@ -1,0 +1,205 @@
+Feature: The product store service back-end # features/products.feature:1
+  As a Product Store Owner
+  I need a RESTful catalog service
+  So that I can keep track of all my products
+  Background:   # features/products.feature:6
+
+  Scenario: The server is running                                   # features/products.feature:14
+    Given the following products                                    # None
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page"                                    # None
+    Then I should see "Product Catalog Administration" in the title # None
+    And I should not see "404 Not Found"                            # None
+
+  Scenario: Create a Product                                  # features/products.feature:19
+    Given the following products                              # None
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page"                              # None
+    And I set the "Name" to "Hammer"                          # None
+    And I set the "Description" to "Claw hammer"              # None
+    And I select "True" in the "Available" dropdown           # None
+    And I select "Tools" in the "Category" dropdown           # None
+    And I set the "Price" to "34.95"                          # None
+    And I press the "Create" button                           # None
+    Then I should see the message "Success"                   # None
+    When I copy the "Id" field                                # None
+    And I press the "Clear" button                            # None
+    Then the "Id" field should be empty                       # None
+    And the "Name" field should be empty                      # None
+    And the "Description" field should be empty               # None
+    When I paste the "Id" field                               # None
+    And I press the "Retrieve" button                         # None
+    Then I should see the message "Success"                   # None
+    And I should see "Hammer" in the "Name" field             # None
+    And I should see "Claw hammer" in the "Description" field # None
+    And I should see "True" in the "Available" dropdown       # None
+    And I should see "Tools" in the "Category" dropdown       # None
+    And I should see "34.95" in the "Price" field             # None
+
+  Scenario: Read a Product                                     # features/products.feature:41
+    Given the following products                               # None
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page"                               # None
+    And I set the "Name" to "Hat"                              # None
+    And I press the "Search" button                            # None
+    Then I should see the message "Success"                    # None
+    When I copy the "Id" field                                 # None
+    And I press the "Clear" button                             # None
+    And I paste the "Id" field                                 # None
+    And I press the "Retrieve" button                          # None
+    Then I should see the message "Success"                    # None
+    And I should see "Hat" in the "Name" field                 # None
+    And I should see "A red fedora" in the "Description" field # None
+    And I should see "True" in the "Available" dropdown        # None
+    And I should see "Cloths" in the "Category" dropdown       # None
+    And I should see "59.95" in the "Price" field              # None
+
+  Scenario: Update a Product                                   # features/products.feature:56
+    Given the following products                               # None
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page"                               # None
+    And I set the "Name" to "Hat"                              # None
+    And I press the "Search" button                            # None
+    Then I should see the message "Success"                    # None
+    And I should see "A red fedora" in the "Description" field # None
+    When I change "Name" to "Fedora"                           # None
+    And I press the "Update" button                            # None
+    Then I should see the message "Success"                    # None
+    When I copy the "Id" field                                 # None
+    And I press the "Clear" button                             # None
+    And I paste the "Id" field                                 # None
+    And I press the "Retrieve" button                          # None
+    Then I should see the message "Success"                    # None
+    And I should see "Fedora" in the "Name" field              # None
+    When I press the "Clear" button                            # None
+    And I press the "Search" button                            # None
+    Then I should see the message "Success"                    # None
+    And I should see "Fedora" in the results                   # None
+    And I should not see "Hat" in the results                  # None
+
+  Scenario: Delete a Product                                   # features/products.feature:76
+    Given the following products                               # features/steps/load_steps.py:25
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page"                               # features/steps/web_steps.py:36
+    And I set the "Name" to "Hat"                              # features/steps/web_steps.py:53
+    And I press the "Search" button                            # features/steps/web_steps.py:136
+    Then I should see the message "Success"                    # features/steps/web_steps.py:156
+    And I should see "A red fedora" in the "Description" field # features/steps/web_steps.py:116
+    When I copy the "Id" field                                 # features/steps/web_steps.py:81
+    And I press the "Clear" button                             # features/steps/web_steps.py:136
+    And I paste the "Id" field                                 # features/steps/web_steps.py:90
+    And I press the "Delete" button                            # features/steps/web_steps.py:136
+    Then I should see the message "Product has been Deleted!"  # features/steps/web_steps.py:156
+    When I press the "Clear" button                            # features/steps/web_steps.py:136
+    And I press the "Search" button                            # features/steps/web_steps.py:136
+    Then I should see the message "Success"                    # features/steps/web_steps.py:156
+    And I should not see "Hat" in the results                  # features/steps/web_steps.py:151
+      Traceback (most recent call last):
+        File "/home/theia/venv/lib/python3.9/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/home/theia/venv/lib/python3.9/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "features/steps/web_steps.py", line 154, in step_impl
+          assert(name not in element.text)
+      AssertionError
+      
+      Captured logging:
+      INFO:flask.app:Creating Hat
+      INFO:flask.app:Creating Shoes
+      INFO:flask.app:Creating Big Mac
+      INFO:flask.app:Creating Sheets
+      INFO:root:Clipboard contains: 333
+
+
+  Scenario: List all products                 # features/products.feature:91
+    Given the following products              # None
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page"              # None
+    And I press the "Clear" button            # None
+    And I press the "Search" button           # None
+    Then I should see the message "Success"   # None
+    And I should see "Hat" in the results     # None
+    And I should see "Shoes" in the results   # None
+    And I should see "Big Mac" in the results # None
+    And I should see "Sheets" in the results  # None
+
+  Scenario: Search by category                     # features/products.feature:100
+    Given the following products                   # None
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page"                   # None
+    And I press the "Clear" button                 # None
+    And I select "Food" in the "Category" dropdown # None
+    And I press the "Search" button                # None
+    Then I should see the message "Success"        # None
+    And I should see "Big Mac" in the results      # None
+    And I should not see "Hat" in the results      # None
+    And I should not see "Shoes" in the results    # None
+    And I should not see "Sheets" in the results   # None
+
+  Scenario: Search by available                     # features/products.feature:110
+    Given the following products                    # None
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page"                    # None
+    And I press the "Clear" button                  # None
+    And I select "True" in the "Available" dropdown # None
+    And I press the "Search" button                 # None
+    Then I should see the message "Success"         # None
+    And I should see "Hat" in the results           # None
+    And I should see "Big Mac" in the results       # None
+    And I should see "Sheets" in the results        # None
+    And I should not see "Shoes" in the results     # None
+
+  Scenario: Search by name                                     # features/products.feature:120
+    Given the following products                               # None
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page"                               # None
+    And I set the "Name" to "Hat"                              # None
+    And I press the "Search" button                            # None
+    Then I should see the message "Success"                    # None
+    And I should see "Hat" in the "Name" field                 # None
+    And I should see "A red fedora" in the "Description" field # None
+
+
+Failing scenarios:
+  features/products.feature:76  Delete a Product
+
+0 features passed, 1 failed, 0 skipped
+0 scenarios passed, 1 failed, 8 skipped
+14 steps passed, 1 failed, 97 skipped, 0 undefined
+Took 0m1.836s

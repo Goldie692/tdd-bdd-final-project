@@ -1,0 +1,18 @@
+21:57:06 system | web.1 started (pid=17687)
+21:57:07 web.1  | [2026-03-08 21:57:07 -0400] [17688] [INFO] Starting gunicorn 20.1.0
+21:57:07 web.1  | [2026-03-08 21:57:07 -0400] [17688] [INFO] Listening at: http://0.0.0.0:8080 (17688)
+21:57:07 web.1  | [2026-03-08 21:57:07 -0400] [17688] [INFO] Using worker: sync
+21:57:07 web.1  | [2026-03-08 21:57:07 -0400] [17690] [INFO] Booting worker with pid: 17690
+21:57:07 web.1  | [2026-03-08 21:57:07 -0400] [INFO] [log_handlers] Logging handler established
+21:57:07 web.1  | [2026-03-08 21:57:07 -0400] [INFO] [__init__] **********************************************************************
+21:57:07 web.1  | [2026-03-08 21:57:07 -0400] [INFO] [__init__] **************  P E T   S E R V I C E   R U N N I N G  ***************
+21:57:07 web.1  | [2026-03-08 21:57:07 -0400] [INFO] [__init__] **********************************************************************
+21:57:07 web.1  | [2026-03-08 21:57:07 -0400] [INFO] [__init__] Service initialized!
+21:57:29 web.1  | [2026-03-08 21:57:29 -0400] [INFO] [routes] Request to list Products
+21:57:29 web.1  | [2026-03-08 21:57:29 -0400] [INFO] [routes] Request to Delete a Product with id [329]
+21:57:29 web.1  | [2026-03-08 21:57:29 -0400] [INFO] [routes] Request to list Products
+21:58:21 web.1  | [2026-03-08 21:58:21 -0400] [INFO] [routes] Request to list Products
+21:58:21 web.1  | [2026-03-08 21:58:21 -0400] [INFO] [routes] Request to Delete a Product with id [333]
+21:58:21 web.1  | [2026-03-08 21:58:21 -0400] [INFO] [routes] Request to list Products
+22:00:37 web.1  | Killed
+22:00:37 system | web.1 stopped (rc=137)

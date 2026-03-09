@@ -1,0 +1,232 @@
+Feature: The product store service back-end
+  Background: 
+
+  Scenario: The server is running
+    Given the following products ... passed in 0.025s
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page" ... passed in 0.223s
+    Then I should see "Product Catalog Administration" in the title ... passed in 0.042s
+    And I should not see "404 Not Found" ... passed in 0.116s
+
+  Scenario: Create a Product
+    Given the following products ... passed in 0.118s
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page" ... passed in 0.149s
+    And I set the "Name" to "Hammer" ... passed in 0.128s
+    And I set the "Description" to "Claw hammer" ... passed in 0.024s
+    And I select "True" in the "Available" dropdown ... passed in 0.034s
+    And I select "Tools" in the "Category" dropdown ... passed in 0.133s
+    And I set the "Price" to "34.95" ... passed in 0.014s
+    And I press the "Create" button ... passed in 0.063s
+    Then I should see the message "Success" ... passed in 0.012s
+    When I copy the "Id" field ... passed in 0.015s
+    And I press the "Clear" button ... passed in 0.066s
+    Then the "Id" field should be empty ... passed in 0.012s
+    And the "Name" field should be empty ... passed in 0.011s
+    And the "Description" field should be empty ... passed in 0.010s
+    When I paste the "Id" field ... passed in 0.013s
+    And I press the "Retrieve" button ... passed in 0.061s
+    Then I should see the message "Success" ... passed in 0.011s
+    And I should see "Hammer" in the "Name" field ... passed in 0.013s
+    And I should see "Claw hammer" in the "Description" field ... passed in 0.011s
+    And I should see "True" in the "Available" dropdown ... passed in 0.016s
+    And I should see "Tools" in the "Category" dropdown ... passed in 0.025s
+    And I should see "34.95" in the "Price" field ... passed in 0.011s
+
+  Scenario: Read a Product
+    Given the following products ... passed in 0.012s
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page" ... passed in 0.132s
+    And I set the "Name" to "Hat" ... passed in 0.057s
+    And I press the "Search" button ... passed in 0.064s
+    Then I should see the message "Success" ... passed in 0.012s
+    When I copy the "Id" field ... passed in 0.011s
+    And I press the "Clear" button ... passed in 0.062s
+    And I paste the "Id" field ... passed in 0.017s
+    And I press the "Retrieve" button ... passed in 0.062s
+    Then I should see the message "Success" ... passed in 0.012s
+    And I should see "Hat" in the "Name" field ... passed in 0.013s
+    And I should see "A red fedora" in the "Description" field ... passed in 0.012s
+    And I should see "True" in the "Available" dropdown ... passed in 0.020s
+    And I should see "Cloths" in the "Category" dropdown ... passed in 0.019s
+    And I should see "59.95" in the "Price" field ... passed in 0.011s
+
+  Scenario: Update a Product
+    Given the following products ... passed in 0.012s
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page" ... passed in 0.087s
+    And I set the "Name" to "Hat" ... passed in 0.063s
+    And I press the "Search" button ... passed in 0.107s
+    Then I should see the message "Success" ... passed in 0.014s
+    And I should see "A red fedora" in the "Description" field ... passed in 0.013s
+    When I change "Name" to "Fedora" ... passed in 0.023s
+    And I press the "Update" button ... passed in 0.101s
+    Then I should see the message "Success" ... passed in 0.019s
+    When I copy the "Id" field ... passed in 0.011s
+    And I press the "Clear" button ... passed in 0.073s
+    And I paste the "Id" field ... passed in 0.018s
+    And I press the "Retrieve" button ... passed in 0.069s
+    Then I should see the message "Success" ... passed in 0.012s
+    And I should see "Fedora" in the "Name" field ... passed in 0.015s
+    When I press the "Clear" button ... passed in 0.072s
+    And I press the "Search" button ... passed in 0.069s
+    Then I should see the message "Success" ... passed in 0.018s
+    And I should see "Fedora" in the results ... passed in 0.713s
+    And I should not see "Hat" in the results ... failed in 0.543s
+Traceback (most recent call last):
+  File "/home/theia/venv/lib/python3.9/site-packages/behave/model.py", line 1329, in run
+    match.run(runner.context)
+  File "/home/theia/venv/lib/python3.9/site-packages/behave/matchers.py", line 98, in run
+    self.func(context, *args, **kwargs)
+  File "features/steps/web_steps.py", line 154, in step_impl
+    assert(name not in element.text)
+AssertionError
+
+Captured logging:
+INFO:flask.app:Creating Hat
+INFO:flask.app:Creating Shoes
+INFO:flask.app:Creating Big Mac
+INFO:flask.app:Creating Sheets
+INFO:root:Clipboard contains: 289
+
+  Scenario: Delete a Product
+    Given the following products ... passed in 0.014s
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page" ... passed in 0.094s
+    And I set the "Name" to "Hat" ... passed in 0.034s
+    And I press the "Search" button ... passed in 0.064s
+    Then I should see the message "Success" ... passed in 0.014s
+    And I should see "A red fedora" in the "Description" field ... passed in 0.012s
+    When I copy the "Id" field ... passed in 0.010s
+    And I press the "Clear" button ... passed in 0.062s
+    And I paste the "Id" field ... passed in 0.017s
+    And I press the "Delete" button ... passed in 0.063s
+    Then I should see the message "Product has been Deleted!" ... passed in 0.014s
+    When I press the "Clear" button ... passed in 0.064s
+    And I press the "Search" button ... passed in 0.065s
+    Then I should see the message "Success" ... passed in 0.052s
+    And I should not see "Hat" in the results ... failed in 0.514s
+Traceback (most recent call last):
+  File "/home/theia/venv/lib/python3.9/site-packages/behave/model.py", line 1329, in run
+    match.run(runner.context)
+  File "/home/theia/venv/lib/python3.9/site-packages/behave/matchers.py", line 98, in run
+    self.func(context, *args, **kwargs)
+  File "features/steps/web_steps.py", line 154, in step_impl
+    assert(name not in element.text)
+AssertionError
+
+Captured logging:
+INFO:flask.app:Creating Hat
+INFO:flask.app:Creating Shoes
+INFO:flask.app:Creating Big Mac
+INFO:flask.app:Creating Sheets
+INFO:root:Clipboard contains: 293
+
+  Scenario: List all products
+    Given the following products ... passed in 0.014s
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page" ... passed in 0.065s
+    And I press the "Clear" button ... passed in 0.084s
+    And I press the "Search" button ... passed in 0.062s
+    Then I should see the message "Success" ... passed in 0.013s
+    And I should see "Hat" in the results ... passed in 0.520s
+    And I should see "Shoes" in the results ... passed in 0.524s
+    And I should see "Big Mac" in the results ... passed in 0.535s
+    And I should see "Sheets" in the results ... passed in 0.577s
+
+  Scenario: Search by category
+    Given the following products ... passed in 0.016s
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page" ... passed in 0.143s
+    And I press the "Clear" button ... passed in 0.076s
+    And I select "Food" in the "Category" dropdown ... passed in 0.085s
+    And I press the "Search" button ... passed in 0.064s
+    Then I should see the message "Success" ... passed in 0.012s
+    And I should see "Big Mac" in the results ... passed in 0.157s
+    And I should not see "Hat" in the results ... passed in 0.153s
+    And I should not see "Shoes" in the results ... passed in 0.157s
+    And I should not see "Sheets" in the results ... passed in 0.143s
+
+  Scenario: Search by available
+    Given the following products ... passed in 0.012s
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page" ... passed in 0.090s
+    And I press the "Clear" button ... passed in 0.080s
+    And I select "True" in the "Available" dropdown ... passed in 0.085s
+    And I press the "Search" button ... passed in 0.062s
+    Then I should see the message "Success" ... passed in 0.049s
+    And I should see "Hat" in the results ... passed in 0.601s
+    And I should see "Big Mac" in the results ... passed in 0.542s
+    And I should see "Sheets" in the results ... passed in 0.539s
+    And I should not see "Shoes" in the results ... failed in 0.540s
+Traceback (most recent call last):
+  File "/home/theia/venv/lib/python3.9/site-packages/behave/model.py", line 1329, in run
+    match.run(runner.context)
+  File "/home/theia/venv/lib/python3.9/site-packages/behave/matchers.py", line 98, in run
+    self.func(context, *args, **kwargs)
+  File "features/steps/web_steps.py", line 154, in step_impl
+    assert(name not in element.text)
+AssertionError
+
+Captured logging:
+INFO:flask.app:Creating Hat
+INFO:flask.app:Creating Shoes
+INFO:flask.app:Creating Big Mac
+INFO:flask.app:Creating Sheets
+
+  Scenario: Search by name
+    Given the following products ... passed in 0.011s
+      | name    | description     | price  | available | category   |
+      | Hat     | A red fedora    | 59.95  | True      | CLOTHS     |
+      | Shoes   | Blue shoes      | 120.50 | False     | CLOTHS     |
+      | Big Mac | 1/4 lb burger   | 5.99   | True      | FOOD       |
+      | Sheets  | Full bed sheets | 87.00  | True      | HOUSEWARES |
+    When I visit the "Home Page" ... passed in 0.083s
+    And I set the "Name" to "Hat" ... passed in 0.033s
+    And I press the "Search" button ... passed in 0.064s
+    Then I should see the message "Success" ... passed in 0.012s
+    And I should see "Hat" in the "Name" field ... passed in 0.011s
+    And I should see "A red fedora" in the "Description" field ... passed in 0.011s
+
+
+Failing scenarios:
+  features/products.feature:56  Update a Product
+  features/products.feature:76  Delete a Product
+  features/products.feature:110  Search by available
+
+0 features passed, 1 failed, 0 skipped
+6 scenarios passed, 3 failed, 0 skipped
+109 steps passed, 3 failed, 0 skipped, 0 undefined
+Took 0m11.243s
